@@ -1,0 +1,22 @@
+services:
+  backend:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=file:./dev.db
+    volumes:
+      - ./dev.db:/app/dev.db
+      - ./prisma:/app/prisma
+    command: sh -c "npx prisma db push --accept-data-loss && npm start"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ../../FullStackIIFront-main/FullStackIIFront-main
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    restart: unless-stopped
