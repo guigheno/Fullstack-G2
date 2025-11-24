@@ -26,6 +26,9 @@ jobs:
     - name: Generate Prisma Client
       run: npx prisma generate
 
+    - name: Create database and tables
+      run: npx prisma db push --accept-data-loss
+
     - name: Run tests
       run: npm test
       env:
