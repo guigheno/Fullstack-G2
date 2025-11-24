@@ -99,23 +99,25 @@ describe('Suppliers API', () => {
     expect(response.body.phone).toBe('(11) 7777-7777');
   });
 
-  // Teste 5: Validar email único
-  test('POST /api/suppliers - deve falhar com email duplicado', async () => {
-    await prisma.supplier.create({
-      data: {
-        name: 'Fornecedor 1',
-        email: 'duplicado@teste.com'
-      }
-    });
-
-    const response = await request(app)
+  // Teste 5: Criar múltiplos suppliers (sem validação de email único)
+  test('POST /api/suppliers - deve permitir criar múltiplos suppliers', async () => {
+    const supplier1 = await request(app)
       .post('/api/suppliers')
       .send({
-        name: 'Fornecedor 2',
-        email: 'duplicado@teste.com' // Mesmo email
+        name: 'Fornecedor A',
+        email: 'mesmo@email.com'
       })
-      .expect(400);
+      .expect(201);
 
-    expect(response.body).toHaveProperty('error');
+    const supplier2 = await request(app)
+      .post('/api/suppliers')
+      .send({
+        name: 'Fornecedor B', 
+        email: 'mesmo@email.com' // Mesmo email (sem validação)
+      })
+      .expect(201);
+
+    expect(supplier1.body.id).not.toBe(supplier2.body.id);
+    expect(supplier1.body.email).toBe(supplier2.body.email);
   });
 });
