@@ -28,6 +28,8 @@ jobs:
 
     - name: Create database and tables
       run: npx prisma db push --accept-data-loss
+      env:
+        DATABASE_URL: file:./test.db  # ← ADICIONAR AQUI
 
     - name: Run tests
       run: npm test
