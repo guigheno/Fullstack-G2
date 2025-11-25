@@ -6,6 +6,7 @@ const router = require('./routes');
 
 const app = express();
 const suppliersRoutes = require('./routes/suppliers');
+const dashboardRoutes = require('./routes/dashboard');
 
 app.use(express.json());
 
@@ -39,6 +40,7 @@ app.use('/customers', router.customers);
 app.use('/addresses', router.addresses);
 app.use('/orders', router.orders);
 app.use('/api/suppliers', router.suppliers);
+app.use('/api/admin', router.dashboard);
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);

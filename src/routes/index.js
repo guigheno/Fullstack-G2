@@ -11,4 +11,5 @@ module.exports = {
   addressesMe: require('./addresses.me.routes'),
   ordersMe: require('./orders.me.routes'),
   suppliers: require('./suppliers'),
+  dashboard: require('./dashboard') 
 };
