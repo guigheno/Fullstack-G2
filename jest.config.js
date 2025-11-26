@@ -6,5 +6,6 @@ module.exports = {
     '!src/config/**'
   ],
   coverageDirectory: 'coverage',
-  testMatch: ['**/__tests__/**/*.test.js']
+  testMatch: ['**/__tests__/**/*.test.js'],
+  setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup.js'] // ← ÚNICA EXPORTAÇÃO
 };
